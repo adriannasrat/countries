@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from "react";
 
 const CountryWeather = ({ countryName }) => {
-  const API_KEY = process.env.REACT_APP_API_KEY
+  const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   const api = {
     key: API_KEY,
@@ -15,12 +14,14 @@ const CountryWeather = ({ countryName }) => {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const response = await fetch(`${api.base}weather?q=${countryName}&units=metric&APPID=${API_KEY}`);
+        const response = await fetch(
+          `${api.base}weather?q=${countryName}&units=metric&APPID=${API_KEY}`,
+        );
         const result = await response.json();
         // console.log(result);
         setWeather(result);
       } catch (error) {
-        console.error('Error fetching weather data:', error);
+        console.error("Error fetching weather data:", error);
       }
     };
 
@@ -32,18 +33,15 @@ const CountryWeather = ({ countryName }) => {
     <div>
       {weather ? (
         <div>
+          <div>temperature: {Math.round(weather.main.temp)}°C</div>
+          <div>{weather.weather[0].main}</div>
           <div>
-            temperature: {Math.round(weather.main.temp)}°C
+            <img
+              src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+              alt="Weather icon"
+            />
           </div>
-          <div>
-            {weather.weather[0].main}
-          </div>
-          <div>
-            <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`} alt="Weather icon" />
-          </div>
-          <div>
-            wind {weather.wind.speed} m/s
-          </div>
+          <div>wind {weather.wind.speed} m/s</div>
         </div>
       ) : (
         <div>Loading weather data...</div>
