@@ -1,29 +1,16 @@
-/* fetchCountries: async () => { */
-/* fetchCountry(name);
-fetchBorders(countryCode); */
+import { normalizeCountry } from "./mappers/countryMapper.js";
 
-const baseUrl =
-  "https://restcountries.com/v3.1/all?fields=name,capital,region,flags,population,languages,currencies,tld,borders,cca3";
+const COUNTRIES_API_URL =
+  "https://countries.dev/countries?fields=name,capital,region,subregion,population,flags,flag,currencies,languages,topLevelDomain,borders,alpha3Code,nativeName";
 
-const getAll = async () => {
-  try {
-    const request = await axios.get(baseUrl);
-    const countries = request.data;
+export async function fetchCountries() {
+  const response = await fetch(COUNTRIES_API_URL);
 
-    // Filter out countries with region "Antarctica"
-    const filteredCountries = countries.filter(
-      (country) => country.region?.toLowerCase() !== "antarctica",
-    );
-
-    return filteredCountries;
-  } catch (error) {
-    console.error("Error fetching countries:", error.message);
-    throw error;
+  if (!response.ok) {
+    throw new Error("Failed to fetch countries");
   }
-};
 
-const exportedObject = {
-  getAll,
-};
+  const countries = await response.json();
 
-export default exportedObject;
+  return countries.map(normalizeCountry);
+}

@@ -1,8 +1,34 @@
-const {
-  countries,
-  loading,
-  error,
-  fetchCountries,
-  fetchCountry,
-  fetchBorders,
-} = useCountries();
+import { useEffect, useState } from "react";
+import { fetchCountries } from "../api/countries";
+
+export function useCountries() {
+  const [countries, setCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function loadCountries() {
+      try {
+        const data = await fetchCountries();
+
+        const filteredCountries = data.filter(
+          (country) => country.region?.toLowerCase() !== "antarctic",
+        );
+
+        setCountries(filteredCountries);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadCountries();
+  }, []);
+
+  return {
+    countries,
+    isLoading,
+    error,
+  };
+}
