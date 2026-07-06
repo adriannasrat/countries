@@ -1,0 +1,40 @@
+import React, { useState } from "react";
+import Country from "./CountryCard";
+import { useNavigate } from "react-router-dom";
+import ScrollToTop from "../common/ScrollToTop";
+
+const CountryList = ({ filterCountries, selectedRegion }) => {
+  const [showDetails, setShowDetails] = useState(null);
+  const history = useNavigate();
+
+  const handleToggleDetails = (countryName) => {
+    setShowDetails(showDetails === countryName ? null : countryName);
+  };
+
+  const countriesToRender = filterCountries.filter(
+    (country) => !selectedRegion || country.region === selectedRegion,
+  );
+
+  const navigateToCountryAbout = (country) => {
+    history(`/country/${country.name.common}`, { state: { country } });
+  };
+
+  return (
+    <div className="grid grid-container items-baseline gap-16 dark:bg-darkBg bg-white">
+      {countriesToRender.map((country, index) => (
+        // eslint-disable-next-line
+        <a key={index} onClick={() => navigateToCountryAbout(country)}>
+          <Country
+            key={index}
+            country={country}
+            showDetails={showDetails}
+            onToggleDetails={handleToggleDetails}
+          />
+        </a>
+      ))}
+      <ScrollToTop />
+    </div>
+  );
+};
+
+export default CountryList;
