@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/* import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -163,3 +163,18 @@ const CountryAbout = ({ countries }) => {
 };
 
 export default CountryAbout;
+ */
+
+import React from "react";
+
+const CountryDetails = () => {
+  return (
+    <main className="min-h-screen bg-white px-10 py-10 dark:bg-darkBg dark:text-white">
+      <div className="mx-auto max-w-screen-2xl">
+        <h1 className="text-2xl font-bold">Country details page</h1>
+      </div>
+    </main>
+  );
+};
+
+export default CountryDetails;

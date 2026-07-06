@@ -1,14 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-/* function App() {
-  return (
-    <Router>
-      <Route path="/" element={<Home />} />
-      <Route path="/country/:name" element={<CountryDetails />} />
-    </Router>
-  );
-} */
+import { ThemeProvider } from "./context/ThemeContext";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
