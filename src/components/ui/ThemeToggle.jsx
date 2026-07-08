@@ -13,7 +13,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="flex items-center gap-2 md:gap-4"
+      className="flex items-center gap-2 md:gap-4 text-slate-950 dark:text-white"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       <FontAwesomeIcon icon={isDark ? solidMoon : regularMoon} />

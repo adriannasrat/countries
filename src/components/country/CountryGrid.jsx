@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Country from "./CountryCard";
-import { useNavigate } from "react-router-dom";
-import ScrollToTop from "../common/ScrollToTop";
+import CountryCard from "./CountryCard";
+import { useNavigate, Link } from "react-router-dom";
 
-const CountryList = ({ filterCountries, selectedRegion }) => {
+/* const CountryList = ({ filterCountries, selectedRegion }) => {
   const [showDetails, setShowDetails] = useState(null);
   const history = useNavigate();
 
@@ -38,3 +37,20 @@ const CountryList = ({ filterCountries, selectedRegion }) => {
 };
 
 export default CountryList;
+ */
+
+export default function CountryGrid({ countries }) {
+  return (
+    <section className="grid gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+      {countries.map((country) => (
+        <Link
+          key={country.cca3}
+          to={`/country/${country.name.common}`}
+          className="block"
+        >
+          <CountryCard country={country} />
+        </Link>
+      ))}
+    </section>
+  );
+}
