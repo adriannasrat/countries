@@ -4,11 +4,16 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
 import AppRoutes from "./routes/AppRoutes";
 
+import Navbar from "./components/layout/Navbar";
+
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <AppRoutes />
+        <div className="min-h-screen bg-white dark:bg-slate-900">
+          <Navbar />
+          <AppRoutes />
+        </div>
       </ThemeProvider>
     </BrowserRouter>
   );
