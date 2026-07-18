@@ -9,7 +9,7 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/country/:name" element={<CountryDetails />} />
+      <Route path="/country/:code" element={<CountryDetails />} />
     </Routes>
   );
 }

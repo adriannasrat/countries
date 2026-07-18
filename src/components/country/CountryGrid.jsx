@@ -45,7 +45,7 @@ export default function CountryGrid({ countries = [] }) {
       {countries.map((country) => (
         <Link
           key={country.cca3}
-          to={`/country/${country.name.common}`}
+          to={`/country/${country.cca3}`}
           className="block"
         >
           <CountryCard country={country} />
