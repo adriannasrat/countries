@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 
 import CountryGrid from "../components/country/CountryGrid";
 import CountryGridSkeleton from "../components/country/CountryGridSkeleton";
+import ErrorState from "../components/ui/ErrorState";
 import NoResults from "../components/ui/NoResults";
 import RegionFilter from "../components/ui/RegionFilter";
 import SearchBar from "../components/ui/SearchBar";
@@ -35,9 +36,7 @@ export default function Home() {
         {isLoading ? (
           <CountryGridSkeleton />
         ) : error ? (
-          <p role="alert" className="text-center text-red-500">
-            Error: {error}
-          </p>
+          <ErrorState description={error} />
         ) : filteredCountries.length > 0 ? (
           <CountryGrid countries={filteredCountries} />
         ) : (
