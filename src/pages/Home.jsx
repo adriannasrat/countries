@@ -1,30 +1,25 @@
 import React, { useMemo, useState } from "react";
 
-import { useCountries } from "../hooks/useCountries";
-import SearchBar from "../components/ui/SearchBar";
-import RegionFilter from "../components/ui/RegionFilter";
 import CountryGrid from "../components/country/CountryGrid";
+import CountryGridSkeleton from "../components/country/CountryGridSkeleton";
+import ErrorState from "../components/ui/ErrorState";
+import NoResults from "../components/ui/NoResults";
+import RegionFilter from "../components/ui/RegionFilter";
+import SearchBar from "../components/ui/SearchBar";
+import { useCountries } from "../hooks/useCountries";
+import { useCountryFilters } from "../hooks/useCountryFilters";
 
 export default function Home() {
-  const { countries, isLoading, error } = useCountries();
+  const { countries, isLoading, error, refetch } = useCountries();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
 
-  const regions = useMemo(() => {
-    return [...new Set(countries.map((country) => country.region))]
-      .filter(Boolean)
-      .sort();
-  }, [countries]);
-
-  if (isLoading) {
-    return <div className="min-h-screen bg-white px-10 py-10">Loading...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-white px-10 py-10">Error: {error}</div>
-    );
-  }
+  const { regions, filteredCountries } = useCountryFilters({
+    countries,
+    searchQuery,
+    selectedRegion,
+  });
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
@@ -38,8 +33,15 @@ export default function Home() {
             onChange={setSelectedRegion}
           />
         </div>
-
-        <CountryGrid countries={countries} />
+        {isLoading ? (
+          <CountryGridSkeleton />
+        ) : error ? (
+          <ErrorState onRetry={refetch} />
+        ) : filteredCountries.length > 0 ? (
+          <CountryGrid countries={filteredCountries} />
+        ) : (
+          <NoResults />
+        )}
       </div>
     </main>
   );

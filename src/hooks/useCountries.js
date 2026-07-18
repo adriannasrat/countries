@@ -1,34 +1,45 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchCountries } from "../api/countries";
 
 export function useCountries() {
   const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const refetch = useCallback(() => {
+    setReloadKey((currentKey) => currentKey + 1);
+  }, []);
 
   useEffect(() => {
     async function loadCountries() {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const data = await fetchCountries();
 
-        const filteredCountries = data.filter(
-          (country) => country.region?.toLowerCase() !== "antarctic",
+        const countriesWithoutAntarctica = data.filter(
+          (country) => country.region?.toLowerCase() !== "antarctica",
         );
 
-        setCountries(filteredCountries);
+        setCountries(countriesWithoutAntarctica);
       } catch (error) {
-        setError(error.message);
+        setError(
+          error instanceof Error ? error.message : "An unknown error occurred",
+        );
       } finally {
         setIsLoading(false);
       }
     }
 
     loadCountries();
-  }, []);
+  }, [reloadKey]);
 
   return {
     countries,
     isLoading,
     error,
+    refetch,
   };
 }
