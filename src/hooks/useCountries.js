@@ -11,11 +11,11 @@ export function useCountries() {
       try {
         const data = await fetchCountries();
 
-        const filteredCountries = data.filter(
-          (country) => country.region?.toLowerCase() !== "antarctic",
+        const countriesWithoutAntarctica = data.filter(
+          (country) => country.region?.toLowerCase() !== "antarctica",
         );
 
-        setCountries(filteredCountries);
+        setCountries(countriesWithoutAntarctica);
       } catch (error) {
         setError(error.message);
       } finally {

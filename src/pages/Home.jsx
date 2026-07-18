@@ -1,28 +1,35 @@
 import React, { useMemo, useState } from "react";
 
-import { useCountries } from "../hooks/useCountries";
-import SearchBar from "../components/ui/SearchBar";
-import RegionFilter from "../components/ui/RegionFilter";
 import CountryGrid from "../components/country/CountryGrid";
+import RegionFilter from "../components/ui/RegionFilter";
+import SearchBar from "../components/ui/SearchBar";
+import { useCountries } from "../hooks/useCountries";
+import { useCountryFilters } from "../hooks/useCountryFilters";
 
 export default function Home() {
   const { countries, isLoading, error } = useCountries();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
 
-  const regions = useMemo(() => {
-    return [...new Set(countries.map((country) => country.region))]
-      .filter(Boolean)
-      .sort();
-  }, [countries]);
+  const { regions, filteredCountries } = useCountryFilters({
+    countries,
+    searchQuery,
+    selectedRegion,
+  });
 
   if (isLoading) {
-    return <div className="min-h-screen bg-white px-10 py-10">Loading...</div>;
+    return (
+      <main className="min-h-screen bg-slate-50 px-10 py-10 dark:bg-slate-900 dark:text-white">
+        Loading countries...
+      </main>
+    );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white px-10 py-10">Error: {error}</div>
+      <main className="min-h-screen bg-slate-50 px-10 py-10 dark:bg-slate-900 dark:text-white">
+        Error: {error}
+      </main>
     );
   }
 
@@ -39,7 +46,7 @@ export default function Home() {
           />
         </div>
 
-        <CountryGrid countries={countries} />
+        <CountryGrid countries={filteredCountries} />
       </div>
     </main>
   );

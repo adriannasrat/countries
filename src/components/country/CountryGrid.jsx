@@ -39,7 +39,7 @@ import { useNavigate, Link } from "react-router-dom";
 export default CountryList;
  */
 
-export default function CountryGrid({ countries }) {
+export default function CountryGrid({ countries = [] }) {
   return (
     <section className="grid gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
       {countries.map((country) => (
