@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 
 import CountryGrid from "../components/country/CountryGrid";
-import EmptyState from "../components/ui/EmptyState";
+import NoResults from "../components/ui/NoResults";
 import RegionFilter from "../components/ui/RegionFilter";
 import SearchBar from "../components/ui/SearchBar";
 import { useCountries } from "../hooks/useCountries";
@@ -50,7 +50,7 @@ export default function Home() {
         {filteredCountries.length > 0 ? (
           <CountryGrid countries={filteredCountries} />
         ) : (
-          <EmptyState />
+          <NoResults />
         )}
       </div>
     </main>
