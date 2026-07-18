@@ -10,7 +10,7 @@ import { useCountries } from "../hooks/useCountries";
 import { useCountryFilters } from "../hooks/useCountryFilters";
 
 export default function Home() {
-  const { countries, isLoading, error } = useCountries();
+  const { countries, isLoading, error, refetch } = useCountries();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -36,7 +36,7 @@ export default function Home() {
         {isLoading ? (
           <CountryGridSkeleton />
         ) : error ? (
-          <ErrorState description={error} />
+          <ErrorState onRetry={refetch} />
         ) : filteredCountries.length > 0 ? (
           <CountryGrid countries={filteredCountries} />
         ) : (
