@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 
 import CountryGrid from "../components/country/CountryGrid";
+import CountryGridSkeleton from "../components/country/CountryGridSkeleton";
 import NoResults from "../components/ui/NoResults";
 import RegionFilter from "../components/ui/RegionFilter";
 import SearchBar from "../components/ui/SearchBar";
@@ -9,6 +10,7 @@ import { useCountryFilters } from "../hooks/useCountryFilters";
 
 export default function Home() {
   const { countries, isLoading, error } = useCountries();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
 
@@ -17,22 +19,6 @@ export default function Home() {
     searchQuery,
     selectedRegion,
   });
-
-  if (isLoading) {
-    return (
-      <main className="min-h-screen bg-slate-50 px-10 py-10 dark:bg-slate-900 dark:text-white">
-        Loading countries...
-      </main>
-    );
-  }
-
-  if (error) {
-    return (
-      <main className="min-h-screen bg-slate-50 px-10 py-10 dark:bg-slate-900 dark:text-white">
-        Error: {error}
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
@@ -46,8 +32,13 @@ export default function Home() {
             onChange={setSelectedRegion}
           />
         </div>
-
-        {filteredCountries.length > 0 ? (
+        {isLoading ? (
+          <CountryGridSkeleton />
+        ) : error ? (
+          <p role="alert" className="text-center text-red-500">
+            Error: {error}
+          </p>
+        ) : filteredCountries.length > 0 ? (
           <CountryGrid countries={filteredCountries} />
         ) : (
           <NoResults />
