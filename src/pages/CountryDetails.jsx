@@ -6,6 +6,7 @@ import CountryDetailsSkeleton from "../components/country/CountryDetailsSkeleton
 import CountryFlag from "../components/country/CountryFlag";
 import CountryInfo from "../components/country/CountryInfo";
 import ErrorState from "../components/ui/ErrorState";
+import PageContainer from "../components/layout/PageContainer";
 import { useCountry } from "../hooks/useCountry";
 
 export default function CountryDetails() {
@@ -19,43 +20,43 @@ export default function CountryDetails() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900 md:px-10">
-        <div className="mx-auto max-w-screen-2xl px-10 py-10 sm:px-20">
+      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
+        <PageContainer className="py-8 sm:py-10 lg:py-12">
           <ErrorState description="{error}" onRetry={refetch} />;
-        </div>
+        </PageContainer>
       </main>
     );
   }
 
   if (!country) {
     return (
-      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900 md:px-10">
-        <div className="mx-auto max-w-screen-2xl px-10 py-10 sm:px-20">
+      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
+        <PageContainer className="py-8 sm:py-10 lg:py-12">
           <ErrorState description="Country data is unavailable." />
-        </div>
+        </PageContainer>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white px-6 py-10 text-slate-950 dark:bg-slate-900 dark:bg-slate-900 md:px-10">
-      <div className="mx-auto max-w-screen-2xl px-10 py-10 sm:px-20">
+    <main className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-white">
+      <PageContainer className="py-8 sm:py-10 lg:py-12">
         <BackButton />
 
-        <section className="mt-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
+        <section className="mt-10 grid gap-10 sm:mt-12 lg:mt-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-16 xl:gap-24">
           <CountryFlag
             flags={country.flags}
             countryName={country.name?.common}
           />
 
           <CountryInfo country={country} />
-
-          <BorderCountries
-            borders={country.borders ?? []}
-            countries={countries}
-          />
         </section>
-      </div>
+
+        <BorderCountries
+          borders={country.borders ?? []}
+          countries={countries}
+        />
+      </PageContainer>
     </main>
   );
 }

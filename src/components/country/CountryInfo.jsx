@@ -27,12 +27,12 @@ export default function CountryInfo({ country }) {
     .join(", ");
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight text-slate-950 dark:text-white">
+    <div className="min-w-0">
+      <h1 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl lg:text-4xl">
         {country.name?.common || "Unknown country"}
       </h1>
 
-      <div className="mt-8 grid gap-10 sm:grid-cols-2">
+      <div className="mt-6 grid gap-8 sm:mt-8 sm:grid-cols-2 sm:gap-10">
         <div className="space-y-2">
           <CountryInfoItem label="Native Name" value={nativeName} />
           <CountryInfoItem label="Population" value={population} />
