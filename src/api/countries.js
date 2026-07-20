@@ -47,5 +47,8 @@ export async function fetchCountryByCode(code) {
     throw new Error(`Country with code "${code}" not found`);
   }
 
-  return country;
+  return {
+    country,
+    countries,
+  };
 }

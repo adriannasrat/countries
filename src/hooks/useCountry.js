@@ -4,6 +4,7 @@ import { fetchCountryByCode } from "../api/countries.js";
 
 export function useCountry(code) {
   const [country, setCountry] = useState(null);
+  const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [reloadKey, setReloadKey] = useState(0);
@@ -30,7 +31,8 @@ export function useCountry(code) {
         const data = await fetchCountryByCode(code);
 
         if (!ignore) {
-          setCountry(data);
+          setCountry(data.country);
+          setCountries(data.countries);
         }
       } catch (error) {
         console.error("Error fetching country:", error);
@@ -59,6 +61,7 @@ export function useCountry(code) {
 
   return {
     country,
+    countries,
     isLoading,
     error,
     refetch,

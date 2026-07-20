@@ -4,6 +4,7 @@ import CountryGrid from "../components/country/CountryGrid";
 import CountryGridSkeleton from "../components/country/CountryGridSkeleton";
 import ErrorState from "../components/ui/ErrorState";
 import NoResults from "../components/ui/NoResults";
+import PageContainer from "../components/layout/PageContainer";
 import RegionFilter from "../components/ui/RegionFilter";
 import SearchBar from "../components/ui/SearchBar";
 import { useCountries } from "../hooks/useCountries";
@@ -23,8 +24,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
-      <div className="mx-auto max-w-screen-2xl px-10 py-10 sm:px-20">
-        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <PageContainer className="py-8 sm:py-10 lg:py-12">
+        <div className="flex flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
           <RegionFilter
@@ -42,7 +43,7 @@ export default function Home() {
         ) : (
           <NoResults />
         )}
-      </div>
+      </PageContainer>
     </main>
   );
 }
