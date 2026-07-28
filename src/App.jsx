@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <div className="min-h-screen bg-white dark:bg-slate-900">
+        <div className="min-h-screen bg-slate-50 text-slate-950 transition-colors dark:bg-slate-900 dark:text-white">
           <Navbar />
           <AppRoutes />
         </div>
