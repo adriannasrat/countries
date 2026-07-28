@@ -17,7 +17,7 @@ export default function BackButton() {
     <button
       type="button"
       onClick={handleBack}
-      className="inline-flex items-center gap-3 rounded-md bg-white px-6 py-2.5 text-sm font-medium text-slate-900 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-4 dark:bg-slate-800 dark:text-white dark:focus-visible:ring-white dark:focus-visible:ring-offset-slate-900"
+      className="inline-flex items-center gap-3 rounded-md bg-white px-6 py-2.5 text-sm font-medium text-slate-900 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg hover:cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-4 dark:bg-slate-800 dark:text-white dark:focus-visible:ring-white dark:focus-visible:ring-offset-slate-900"
     >
       <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" />
       <span>Back</span>
