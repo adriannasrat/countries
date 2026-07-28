@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  background-color: var(--color-slate-50);
+}
+
+html.dark {
+  background-color: var(--color-slate-900);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
