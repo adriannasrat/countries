@@ -46,7 +46,7 @@ export default function Pagination({
   const pageItems = createPageItems(currentPage, totalPages);
 
   const buttonClasses =
-    "inline-flex min-h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 dark:focus-visible:ring-white dark:focus-visible:ring-offset-slate-900";
+    "inline-flex min-h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 hover:cursor-pointer dark:focus-visible:ring-white dark:focus-visible:ring-offset-slate-900";
 
   return (
     <nav
