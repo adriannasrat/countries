@@ -10,8 +10,6 @@ export default function BackButton() {
       navigate(-1);
       return;
     }
-
-    navigate("/");
   }
   return (
     <button
