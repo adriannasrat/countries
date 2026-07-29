@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { useSearchParams, useNavigationType } from "react-router-dom";
 
 import CountryGrid from "../components/country/CountryGrid";
 import CountryGridSkeleton from "../components/country/CountryGridSkeleton";
@@ -13,9 +13,18 @@ import { useCountries } from "../hooks/useCountries";
 import { useCountryFilters } from "../hooks/useCountryFilters";
 import { usePagination } from "../hooks/usePagination";
 
+import {
+  clearHomeScrollPosition,
+  getHomeScrollPosition,
+} from "../utils/homeScrollPosition";
+
 const COUNTRIES_PER_PAGE = 24;
 
 export default function Home() {
+  const homeContentRef = useRef(null);
+  const restoredScrollRef = useRef(false);
+  const navigationType = useNavigationType();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchQuery = searchParams.get("search") ?? "";
@@ -47,6 +56,36 @@ export default function Home() {
     onPageChange: handlePageChange,
   });
 
+  useEffect(() => {
+    const resultsAreReady =
+      !isLoading && !error && filteredCountries.length > 0;
+
+    if (
+      navigationType !== "POP" ||
+      !resultsAreReady ||
+      restoredScrollRef.current
+    ) {
+      return;
+    }
+
+    const savedScrollY = getHomeScrollPosition();
+
+    if (savedScrollY === null) {
+      return;
+    }
+
+    restoredScrollRef.current = true;
+
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: savedScrollY,
+        behavior: "auto",
+      });
+
+      clearHomeScrollPosition();
+    });
+  }, [error, filteredCountries.length, isLoading, navigationType]);
+
   function handlePageChange(nextPage) {
     setSearchParams(
       (currentParams) => {
@@ -60,8 +99,17 @@ export default function Home() {
 
         return nextParams;
       },
-      { replace: false },
+      {
+        replace: false,
+        preventScrollReset: true,
+      },
     );
+
+    requestAnimationFrame(() => {
+      homeContentRef.current?.scrollIntoView({
+        block: "start",
+      });
+    });
   }
 
   function handleSearchChange(value) {
@@ -101,7 +149,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
       <PageContainer className="py-8 sm:py-10 lg:py-12">
-        <div className="flex flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
+        <div
+          ref={homeContentRef}
+          className="flex flex-col scroll-mt-6 gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between"
+        >
           <SearchBar value={searchQuery} onChange={handleSearchChange} />
 
           <RegionFilter
