@@ -147,7 +147,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
       <PageContainer className="py-8 sm:py-10 lg:py-12">
         <div
           ref={homeContentRef}
@@ -183,6 +183,6 @@ export default function Home() {
           <NoResults />
         )}
       </PageContainer>
-    </main>
+    </div>
   );
 }

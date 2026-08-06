@@ -4,7 +4,7 @@ import PageContainer from "../components/layout/PageContainer";
 
 export default function NotFound() {
   return (
-    <main className="min-h-[calc(100vh-4rem)] bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-[calc(100vh-4rem)] bg-slate-50 dark:bg-slate-900">
       <PageContainer className="flex min-h-[calc(100vh-4rem)] items-center justify-center py-12 text-center">
         <section aria-labelledby="not-found-title">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -30,6 +30,6 @@ export default function NotFound() {
           </Link>
         </section>
       </PageContainer>
-    </main>
+    </div>
   );
 }

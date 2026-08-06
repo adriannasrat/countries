@@ -20,26 +20,26 @@ export default function CountryDetails() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
+      <div className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
         <PageContainer className="py-8 sm:py-10 lg:py-12">
-          <ErrorState description="{error}" onRetry={refetch} />;
+          <ErrorState description={error} onRetry={refetch} />
         </PageContainer>
-      </main>
+      </div>
     );
   }
 
   if (!country) {
     return (
-      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
+      <div className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
         <PageContainer className="py-8 sm:py-10 lg:py-12">
           <ErrorState description="Country data is unavailable." />
         </PageContainer>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-white">
       <PageContainer className="py-8 sm:py-10 lg:py-12">
         <BackButton />
 
@@ -57,6 +57,6 @@ export default function CountryDetails() {
           countries={countries}
         />
       </PageContainer>
-    </main>
+    </div>
   );
 }
