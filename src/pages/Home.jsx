@@ -8,6 +8,7 @@ import NoResults from "../components/ui/NoResults";
 import PageContainer from "../components/layout/PageContainer";
 import Pagination from "../components/ui/Pagination";
 import RegionFilter from "../components/ui/RegionFilter";
+import ResultsStatus from "../components/ui/ResultsStatus";
 import SearchBar from "../components/ui/SearchBar";
 import { useCountries } from "../hooks/useCountries";
 import { useCountryFilters } from "../hooks/useCountryFilters";
@@ -167,6 +168,13 @@ export default function Home() {
           <ErrorState onRetry={refetch} />
         ) : filteredCountries.length > 0 ? (
           <>
+            <ResultsStatus
+              currentPage={currentPage}
+              pageSize={COUNTRIES_PER_PAGE}
+              totalResults={filteredCountries.length}
+              visibleResults={paginatedItems.length}
+            />
+
             <CountryGrid countries={paginatedItems} />
 
             <Pagination
