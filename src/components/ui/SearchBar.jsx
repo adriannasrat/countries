@@ -1,17 +1,21 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const SearchBar = ({ value, onChange }) => {
   return (
     <label className="relative block w-full md:max-w-md">
       <span className="sr-only">Search for a country</span>
 
-      <FontAwesomeIcon
-        icon={faMagnifyingGlass}
+      <svg
         aria-hidden="true"
-        className="pointer-events-none absolute left-8 top-1/2 -translate-y-1/2 text-slate-400"
-      />
+        viewBox="0 0 24 24"
+        className="pointer-events-none absolute left-8 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-4-4" />
+      </svg>
 
       <input
         type="search"
