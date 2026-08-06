@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import CountryDetails from "../pages/CountryDetails";
 import Home from "../pages/Home";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
       {
         path: "/country/:code",
         element: <CountryDetails />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
