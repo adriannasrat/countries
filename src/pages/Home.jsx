@@ -8,9 +8,11 @@ import NoResults from "../components/ui/NoResults";
 import PageContainer from "../components/layout/PageContainer";
 import Pagination from "../components/ui/Pagination";
 import RegionFilter from "../components/ui/RegionFilter";
+import ResultsStatus from "../components/ui/ResultsStatus";
 import SearchBar from "../components/ui/SearchBar";
 import { useCountries } from "../hooks/useCountries";
 import { useCountryFilters } from "../hooks/useCountryFilters";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { usePagination } from "../hooks/usePagination";
 
 import {
@@ -21,6 +23,8 @@ import {
 const COUNTRIES_PER_PAGE = 24;
 
 export default function Home() {
+  useDocumentTitle("Countries");
+
   const homeContentRef = useRef(null);
   const restoredScrollRef = useRef(false);
   const navigationType = useNavigationType();
@@ -147,10 +151,15 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
       <PageContainer className="py-8 sm:py-10 lg:py-12">
-        <div
+        <h1 className="sr-only">Countries</h1>
+
+        <form
           ref={homeContentRef}
+          role="search"
+          aria-label="Filter countries"
+          onSubmit={(event) => event.preventDefault()}
           className="flex flex-col scroll-mt-6 gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between"
         >
           <SearchBar value={searchQuery} onChange={handleSearchChange} />
@@ -160,13 +169,20 @@ export default function Home() {
             regions={regions}
             onChange={handleRegionChange}
           />
-        </div>
+        </form>
         {isLoading ? (
           <CountryGridSkeleton />
         ) : error ? (
           <ErrorState onRetry={refetch} />
         ) : filteredCountries.length > 0 ? (
           <>
+            <ResultsStatus
+              currentPage={currentPage}
+              pageSize={COUNTRIES_PER_PAGE}
+              totalResults={filteredCountries.length}
+              visibleResults={paginatedItems.length}
+            />
+
             <CountryGrid countries={paginatedItems} />
 
             <Pagination
@@ -183,6 +199,6 @@ export default function Home() {
           <NoResults />
         )}
       </PageContainer>
-    </main>
+    </div>
   );
 }

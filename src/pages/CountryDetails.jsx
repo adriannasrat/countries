@@ -8,11 +8,18 @@ import CountryInfo from "../components/country/CountryInfo";
 import ErrorState from "../components/ui/ErrorState";
 import PageContainer from "../components/layout/PageContainer";
 import { useCountry } from "../hooks/useCountry";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 export default function CountryDetails() {
   const { code } = useParams();
 
   const { country, countries, isLoading, error, refetch } = useCountry(code);
+
+  const documentTitle = error
+    ? "Country unavailable"
+    : country?.name?.common || "Country details";
+
+  useDocumentTitle(documentTitle);
 
   if (isLoading) {
     return <CountryDetailsSkeleton />;
@@ -20,26 +27,33 @@ export default function CountryDetails() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
+      <div className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
         <PageContainer className="py-8 sm:py-10 lg:py-12">
-          <ErrorState description="{error}" onRetry={refetch} />;
+          <ErrorState
+            description={error}
+            onRetry={refetch}
+            headingLevel="h1"
+          />
         </PageContainer>
-      </main>
+      </div>
     );
   }
 
   if (!country) {
     return (
-      <main className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
+      <div className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
         <PageContainer className="py-8 sm:py-10 lg:py-12">
-          <ErrorState description="Country data is unavailable." />
+          <ErrorState
+            description="Country data is unavailable."
+            headingLevel="h1"
+          />
         </PageContainer>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-white">
       <PageContainer className="py-8 sm:py-10 lg:py-12">
         <BackButton />
 
@@ -57,6 +71,6 @@ export default function CountryDetails() {
           countries={countries}
         />
       </PageContainer>
-    </main>
+    </div>
   );
 }
