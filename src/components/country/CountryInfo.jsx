@@ -9,7 +9,7 @@ export default function CountryInfo({ country }) {
   const population =
     country.population?.toLocaleString("en") || "Unknown population";
 
-  const region = country.region ?? "Uknonwn region";
+  const region = country.region ?? "Unknown region";
   const subregion = country.subregion ?? "Unknown subregion";
   const capital = country.capital?.join(", ") || "No capital";
 

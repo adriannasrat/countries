@@ -8,8 +8,12 @@ export default function CountryGrid({ countries = [] }) {
       </h2>
 
       <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10 xl:grid-cols-4">
-        {countries.map((country) => (
-          <li key={country.cca3} className="h-full">
+        {countries.map((country, index) => (
+          <li
+            key={country.cca3}
+            className="country-card-enter h-full"
+            style={{ "--card-index": Math.min(index, 8) }}
+          >
             <CountryCard country={country} />
           </li>
         ))}
