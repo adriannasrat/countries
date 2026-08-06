@@ -1,9 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import AppLayout from "../components/layout/AppLayout";
-import CountryDetails from "../pages/CountryDetails";
-import Home from "../pages/Home";
-import NotFound from "../pages/NotFound";
 import RouteError from "../pages/RouteError";
 
 export const router = createBrowserRouter([
@@ -13,15 +10,29 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        lazy: async () => {
+          const { default: Component } = await import("../pages/Home");
+
+          return { Component };
+        },
       },
       {
         path: "/country/:code",
-        element: <CountryDetails />,
+        lazy: async () => {
+          const { default: Component } = await import(
+            "../pages/CountryDetails"
+          );
+
+          return { Component };
+        },
       },
       {
         path: "*",
-        element: <NotFound />,
+        lazy: async () => {
+          const { default: Component } = await import("../pages/NotFound");
+
+          return { Component };
+        },
       },
     ],
   },

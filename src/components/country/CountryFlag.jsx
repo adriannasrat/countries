@@ -8,6 +8,8 @@ export default function CountryFlag({ flags, countryName }) {
         <img
           src={source}
           alt={alt}
+          fetchPriority="high"
+          decoding="async"
           className="max-h-full max-w-full object-contain shadow-lg"
         />
       ) : (

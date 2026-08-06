@@ -14,7 +14,7 @@ export default function CountryGrid({ countries = [] }) {
             className="country-card-enter h-full"
             style={{ "--card-index": Math.min(index, 8) }}
           >
-            <CountryCard country={country} />
+            <CountryCard country={country} priority={index < 4} />
           </li>
         ))}
       </ul>

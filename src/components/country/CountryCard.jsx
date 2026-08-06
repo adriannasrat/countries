@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function CountryCard({ country }) {
+export default function CountryCard({ country, priority = false }) {
   const name = country.name?.common ?? "Unknown country";
   const population =
     country.population?.toLocaleString("en") ?? "Unknown population";
@@ -17,7 +17,9 @@ export default function CountryCard({ country }) {
           <img
             src={flag}
             alt={flagAlt}
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+            decoding="async"
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         ) : (
