@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 
 import PageContainer from "../components/layout/PageContainer";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 export default function NotFound() {
+  useDocumentTitle("Page not found");
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-slate-50 dark:bg-slate-900">
       <PageContainer className="flex min-h-[calc(100vh-4rem)] items-center justify-center py-12 text-center">

@@ -12,6 +12,7 @@ import ResultsStatus from "../components/ui/ResultsStatus";
 import SearchBar from "../components/ui/SearchBar";
 import { useCountries } from "../hooks/useCountries";
 import { useCountryFilters } from "../hooks/useCountryFilters";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { usePagination } from "../hooks/usePagination";
 
 import {
@@ -22,6 +23,8 @@ import {
 const COUNTRIES_PER_PAGE = 24;
 
 export default function Home() {
+  useDocumentTitle("Countries");
+
   const homeContentRef = useRef(null);
   const restoredScrollRef = useRef(false);
   const navigationType = useNavigationType();

@@ -8,11 +8,18 @@ import CountryInfo from "../components/country/CountryInfo";
 import ErrorState from "../components/ui/ErrorState";
 import PageContainer from "../components/layout/PageContainer";
 import { useCountry } from "../hooks/useCountry";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 export default function CountryDetails() {
   const { code } = useParams();
 
   const { country, countries, isLoading, error, refetch } = useCountry(code);
+
+  const documentTitle = error
+    ? "Country unavailable"
+    : country?.name?.common || "Country details";
+
+  useDocumentTitle(documentTitle);
 
   if (isLoading) {
     return <CountryDetailsSkeleton />;
