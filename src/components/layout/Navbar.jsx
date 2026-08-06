@@ -7,6 +7,7 @@ export default function Navbar() {
     <header className="bg-white shadow-md dark:bg-slate-800">
       <PageContainer
         as="nav"
+        aria-label="Primary navigation"
         className="flex min-h-16 items-center justify-between gap-4 py-4 sm:min-h-20"
       >
         <Link
