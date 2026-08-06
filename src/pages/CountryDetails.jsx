@@ -29,7 +29,11 @@ export default function CountryDetails() {
     return (
       <div className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
         <PageContainer className="py-8 sm:py-10 lg:py-12">
-          <ErrorState description={error} onRetry={refetch} />
+          <ErrorState
+            description={error}
+            onRetry={refetch}
+            headingLevel="h1"
+          />
         </PageContainer>
       </div>
     );
@@ -39,7 +43,10 @@ export default function CountryDetails() {
     return (
       <div className="min-h-screen bg-white px-6 py-10 dark:bg-slate-900">
         <PageContainer className="py-8 sm:py-10 lg:py-12">
-          <ErrorState description="Country data is unavailable." />
+          <ErrorState
+            description="Country data is unavailable."
+            headingLevel="h1"
+          />
         </PageContainer>
       </div>
     );

@@ -153,8 +153,13 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-white">
       <PageContainer className="py-8 sm:py-10 lg:py-12">
-        <div
+        <h1 className="sr-only">Countries</h1>
+
+        <form
           ref={homeContentRef}
+          role="search"
+          aria-label="Filter countries"
+          onSubmit={(event) => event.preventDefault()}
           className="flex flex-col scroll-mt-6 gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between"
         >
           <SearchBar value={searchQuery} onChange={handleSearchChange} />
@@ -164,7 +169,7 @@ export default function Home() {
             regions={regions}
             onChange={handleRegionChange}
           />
-        </div>
+        </form>
         {isLoading ? (
           <CountryGridSkeleton />
         ) : error ? (
