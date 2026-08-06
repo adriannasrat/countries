@@ -20,16 +20,43 @@ const COUNTRY_FIELDS = [
 
 const COUNTRIES_API_URL = `${COUNTRIES_API_BASE_URL}/countries?fields=${COUNTRY_FIELDS}`;
 
-export async function fetchCountries() {
-  const response = await fetch(COUNTRIES_API_URL);
+let countriesCache = null;
+let countriesRequest = null;
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch countries");
+export function getCachedCountries() {
+  return countriesCache;
+}
+
+export async function fetchCountries({ force = false } = {}) {
+  if (!force && countriesCache) {
+    return countriesCache;
   }
 
-  const countries = await response.json();
+  if (!force && countriesRequest) {
+    return countriesRequest;
+  }
 
-  return countries.map(normalizeCountry);
+  const request = fetch(COUNTRIES_API_URL).then(async (response) => {
+    if (!response.ok) {
+      throw new Error("Failed to fetch countries");
+    }
+
+    const countries = await response.json();
+
+    return countries.map(normalizeCountry);
+  });
+
+  countriesRequest = request;
+
+  try {
+    countriesCache = await request;
+
+    return countriesCache;
+  } finally {
+    if (countriesRequest === request) {
+      countriesRequest = null;
+    }
+  }
 }
 
 export async function fetchCountryByCode(code) {

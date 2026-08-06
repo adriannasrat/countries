@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { useSearchParams, useNavigationType } from "react-router-dom";
+import React, { useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import CountryGrid from "../components/country/CountryGrid";
 import CountryGridSkeleton from "../components/country/CountryGridSkeleton";
@@ -15,19 +15,12 @@ import { useCountryFilters } from "../hooks/useCountryFilters";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { usePagination } from "../hooks/usePagination";
 
-import {
-  clearHomeScrollPosition,
-  getHomeScrollPosition,
-} from "../utils/homeScrollPosition";
-
 const COUNTRIES_PER_PAGE = 24;
 
 export default function Home() {
   useDocumentTitle("Countries");
 
   const homeContentRef = useRef(null);
-  const restoredScrollRef = useRef(false);
-  const navigationType = useNavigationType();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -60,37 +53,16 @@ export default function Home() {
     onPageChange: handlePageChange,
   });
 
-  useEffect(() => {
-    const resultsAreReady =
-      !isLoading && !error && filteredCountries.length > 0;
-
-    if (
-      navigationType !== "POP" ||
-      !resultsAreReady ||
-      restoredScrollRef.current
-    ) {
-      return;
-    }
-
-    const savedScrollY = getHomeScrollPosition();
-
-    if (savedScrollY === null) {
-      return;
-    }
-
-    restoredScrollRef.current = true;
-
-    requestAnimationFrame(() => {
-      window.scrollTo({
-        top: savedScrollY,
-        behavior: "auto",
-      });
-
-      clearHomeScrollPosition();
-    });
-  }, [error, filteredCountries.length, isLoading, navigationType]);
-
   function handlePageChange(nextPage) {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    homeContentRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+
     setSearchParams(
       (currentParams) => {
         const nextParams = new URLSearchParams(currentParams);
@@ -109,11 +81,6 @@ export default function Home() {
       },
     );
 
-    requestAnimationFrame(() => {
-      homeContentRef.current?.scrollIntoView({
-        block: "start",
-      });
-    });
   }
 
   function handleSearchChange(value) {

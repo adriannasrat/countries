@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { saveHomeScrollPosition } from "../../utils/homeScrollPosition";
 
 export default function CountryCard({ country }) {
   const name = country.name?.common ?? "Unknown country";
@@ -66,7 +65,6 @@ export default function CountryCard({ country }) {
   return (
     <Link
       to={`/country/${countryCode}`}
-      onClick={() => saveHomeScrollPosition(window.scrollY)}
       aria-label={`View details for ${name}`}
       className="group block h-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-4 dark:focus-visible:ring-white dark:focus-visible:ring-offset-slate-900"
     >
