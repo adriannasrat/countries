@@ -23,7 +23,7 @@ export default function ThemeToggle() {
         aria-hidden="true"
       />
       <span className="hidden sm:inline">
-        {isDarkMode ? "Dark Mode" : "Light Mode"}
+        {isDarkMode ? "Light Mode" : "Dark Mode"}
       </span>
     </button>
   );
