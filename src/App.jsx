@@ -7,7 +7,10 @@ import { router } from "./routes/router";
 function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <RouterProvider
+        router={router}
+        future={{ v7_startTransition: true }}
+      />
     </ThemeProvider>
   );
 }
