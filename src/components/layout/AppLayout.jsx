@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import {
   Outlet,
   ScrollRestoration,
@@ -14,11 +14,12 @@ export default function AppLayout() {
   const { pathname } = useLocation();
   const navigationType = useNavigationType();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (navigationType === "POP") {
       return;
     }
 
+    window.scrollTo({ top: 0, behavior: "auto" });
     mainContentRef.current?.focus({ preventScroll: true });
   }, [navigationType, pathname]);
 
