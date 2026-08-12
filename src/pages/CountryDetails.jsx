@@ -66,6 +66,7 @@ export default function CountryDetails() {
           <CountryFlag
             flags={country.flags}
             countryName={country.name?.common}
+            countryCode={country.cca2}
           />
 
           <CountryInfo country={country} />

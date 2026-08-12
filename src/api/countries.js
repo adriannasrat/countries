@@ -14,6 +14,7 @@ const COUNTRY_FIELDS = [
   "languages",
   "topLevelDomain",
   "borders",
+  "alpha2Code",
   "alpha3Code",
   "nativeName",
 ].join(",");
