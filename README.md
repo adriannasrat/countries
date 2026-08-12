@@ -6,8 +6,10 @@ population, languages, currencies, and neighboring countries.
 
 ![Where in the world design preview](./src/assets/images/desktop-preview.jpg)
 
-> The screenshot above is the original design reference. Updated application
-> screenshots and the production URL will be added during deployment polish.
+> The screenshot above is the original design reference. Fresh application
+> screenshots will be added after the polished release is deployed.
+
+[View the live application](https://countries-api-by-adrian.vercel.app/)
 
 ## Features
 
@@ -115,6 +117,8 @@ animations, caching, and performance optimizations.
 
 ## Project status
 
-The main application experience is complete. Remaining release work includes
-production deployment verification, fresh screenshots, final metadata, and a
-deployed Lighthouse audit.
+The main application experience is complete. The project includes production
+metadata, installable-app metadata, client-side route rewrites, long-lived
+asset caching, and baseline security headers for Vercel. The final release
+check will verify the deployed configuration, capture fresh screenshots, and
+run Lighthouse against the production deployment.
