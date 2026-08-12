@@ -1,8 +1,8 @@
 # Where in the world?
 
 A responsive country explorer built with React. Browse countries from around
-the world, search by name, filter by region, and open a detailed view with
-population, languages, currencies, and neighboring countries.
+the world, search by name, filter by region and open a detailed view with
+population, languages, currencies and neighboring countries.
 
 ![Where in the world design preview](./src/assets/images/desktop-preview.jpg)
 
@@ -13,12 +13,12 @@ population, languages, currencies, and neighboring countries.
 
 - Search countries by name and filter them by region
 - Paginated, alphabetically ordered country results
-- URL-backed search, region, and page state for refreshable and shareable views
+- URL-backed search, region and page state for refreshable and shareable views
 - Detailed country information with direct border-country navigation
-- Browser Back navigation that restores filters, pagination, and scroll position
+- Browser Back navigation that restores filters, pagination and scroll position
 - Persistent light and dark themes with system-preference support
-- Responsive layouts for mobile, tablet, and desktop
-- Loading skeletons, retryable errors, empty states, and a custom 404 page
+- Responsive layouts for mobile, tablet and desktop
+- Loading skeletons, retryable errors, empty states and a custom 404 page
 - Subtle interface animations with reduced-motion support
 
 ## Accessibility
@@ -26,7 +26,7 @@ population, languages, currencies, and neighboring countries.
 Accessibility is treated as part of the application architecture rather than a
 separate visual layer. The interface includes:
 
-- Semantic headings, lists, forms, and named landmarks
+- Semantic headings, lists, forms and named landmarks
 - A skip link and managed focus after route navigation
 - Visible keyboard focus indicators
 - Accessible names and states for controls and pagination
@@ -37,7 +37,7 @@ separate visual layer. The interface includes:
 
 ## Performance
 
-- Route-level code splitting for Home, Country Details, and the 404 page
+- Route-level code splitting for Home, Country Details and the 404 page
 - An in-memory country cache with concurrent-request deduplication
 - Prioritized above-the-fold flags and lazy loading for later images
 - Asynchronous image decoding and preconnections to external origins
@@ -57,16 +57,16 @@ separate visual layer. The interface includes:
 ```text
 src/
 ├── api/          API requests and response normalization
-├── components/   Country, layout, and reusable UI components
+├── components/   Country, layout and reusable UI components
 ├── context/      Application-wide theme state
-├── hooks/        Data, filtering, pagination, and document-title logic
+├── hooks/        Data, filtering, pagination and document-title logic
 ├── pages/        Route-level screens and error states
 └── routes/       Lazy route configuration
 ```
 
 The API layer normalizes external data into a stable application model before
 it reaches the UI. Page components coordinate state and hooks, while reusable
-components remain focused on presentation and interaction. Search, region, and
+components remain focused on presentation and interaction. Search, region and
 pagination values live in the URL so navigation behavior does not depend on
 temporary component state.
 
@@ -95,10 +95,10 @@ Vite will print the local development URL in the terminal.
 
 ## Available scripts
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Create an optimized production build |
+| Command           | Purpose                              |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the Vite development server    |
+| `npm run build`   | Create an optimized production build |
 | `npm run preview` | Preview the production build locally |
 
 ## Data source
@@ -111,10 +111,10 @@ URLs provided by the API response.
 
 This project began as the Frontend Mentor REST Countries API challenge and was
 expanded with pagination, URL-persisted state, robust routing, accessibility,
-animations, caching, and performance optimizations.
+animations, caching and performance optimizations.
 
 ## Project status
 
 The main application experience is complete. Remaining release work includes
-production deployment verification, fresh screenshots, final metadata, and a
+production deployment verification, fresh screenshots, final metadata and a
 deployed Lighthouse audit.
