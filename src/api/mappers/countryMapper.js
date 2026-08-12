@@ -38,6 +38,7 @@ export function normalizeCountry(country) {
       : {},
     tld: country.topLevelDomain || [],
     borders: country.borders || [],
+    cca2: country.alpha2Code,
     cca3: country.alpha3Code,
   };
 }

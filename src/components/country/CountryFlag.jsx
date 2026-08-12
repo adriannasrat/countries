@@ -1,22 +1,20 @@
-export default function CountryFlag({ flags, countryName }) {
-  const source = flags?.svg || flags?.png;
+import FlagImage from "./FlagImage.jsx";
+
+export default function CountryFlag({ flags, countryName, countryCode }) {
   const alt = flags?.alt || `Flag of ${countryName}`;
+  const flagCdnFallback = countryCode
+    ? `https://flagcdn.com/${countryCode.toLowerCase()}.svg`
+    : "";
 
   return (
     <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-lg">
-      {source ? (
-        <img
-          src={source}
-          alt={alt}
-          fetchPriority="high"
-          decoding="async"
-          className="max-h-full max-w-full object-contain shadow-lg"
-        />
-      ) : (
-        <p className="text-sm text-slate-500 dark:text-slate-400">
-          Flag unavailable
-        </p>
-      )}
+      <FlagImage
+        alt={alt}
+        sources={[flags?.svg, flags?.png, flagCdnFallback]}
+        fetchPriority="high"
+        className="max-h-full max-w-full object-contain shadow-lg"
+        fallbackClassName="text-sm text-slate-500 dark:text-slate-400"
+      />
     </div>
   );
 }
