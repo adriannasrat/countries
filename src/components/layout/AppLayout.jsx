@@ -13,9 +13,14 @@ export default function AppLayout() {
   const mainContentRef = useRef(null);
   const { pathname } = useLocation();
   const navigationType = useNavigationType();
+  const previousPathnameRef = useRef(pathname);
 
   useLayoutEffect(() => {
-    if (navigationType === "POP") {
+    const pathnameChanged = previousPathnameRef.current !== pathname;
+
+    previousPathnameRef.current = pathname;
+
+    if (!pathnameChanged || navigationType === "POP") {
       return;
     }
 
